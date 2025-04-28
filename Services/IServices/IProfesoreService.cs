@@ -4,9 +4,9 @@ namespace Lab05RQuispe.Services;
     
     public interface IProfesoreService
     {
-        Task<IEnumerable<profesore>> GetAllAsync();
-        Task<profesore?> GetByIdAsync(int id);
-        Task AddAsync(profesore profesore);
-        Task UpdateAsync(profesore profesore);
+        Task<IEnumerable<Profesore>> GetAllAsync();
+        Task<Profesore?> GetByIdAsync(int id);
+        Task AddAsync(Profesore profesore);
+        Task UpdateAsync(Profesore profesore);
         Task DeleteAsync(int id);
     }

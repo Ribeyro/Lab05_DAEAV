@@ -12,34 +12,34 @@ using Lab05RQuispe.Models;
             _unitOfWork = unitOfWork;
         }
     
-        public async Task<IEnumerable<evaluacione>> GetAllAsync()
+        public async Task<IEnumerable<Evaluacione>> GetAllAsync()
         {
-            return await _unitOfWork.Repository<evaluacione>().GetAllAsync();
+            return await _unitOfWork.Repository<Evaluacione>().GetAllAsync();
         }
     
-        public async Task<evaluacione?> GetByIdAsync(int id)
+        public async Task<Evaluacione?> GetByIdAsync(int id)
         {
-            return await _unitOfWork.Repository<evaluacione>().GetByIdAsync(id);
+            return await _unitOfWork.Repository<Evaluacione>().GetByIdAsync(id);
         }
     
-        public async Task AddAsync(evaluacione evaluacione)
+        public async Task AddAsync(Evaluacione evaluacione)
         {
-            await _unitOfWork.Repository<evaluacione>().AddAsync(evaluacione);
+            await _unitOfWork.Repository<Evaluacione>().AddAsync(evaluacione);
             await _unitOfWork.Complete();
         }
     
-        public async Task UpdateAsync(evaluacione evaluacione)
+        public async Task UpdateAsync(Evaluacione evaluacione)
         {
-            _unitOfWork.Repository<evaluacione>().Update(evaluacione);
+            _unitOfWork.Repository<Evaluacione>().Update(evaluacione);
             await _unitOfWork.Complete();
         }
     
         public async Task DeleteAsync(int id)
         {
-            var evaluacione = await _unitOfWork.Repository<evaluacione>().GetByIdAsync(id);
+            var evaluacione = await _unitOfWork.Repository<Evaluacione>().GetByIdAsync(id);
             if (evaluacione != null)
             {
-                _unitOfWork.Repository<evaluacione>().Remove(evaluacione);
+                _unitOfWork.Repository<Evaluacione>().Remove(evaluacione);
                 await _unitOfWork.Complete();
             }
         }

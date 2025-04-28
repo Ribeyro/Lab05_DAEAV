@@ -12,34 +12,34 @@ using Lab05RQuispe.Models;
             _unitOfWork = unitOfWork;
         }
     
-        public async Task<IEnumerable<curso>> GetAllAsync()
+        public async Task<IEnumerable<Curso>> GetAllAsync()
         {
-            return await _unitOfWork.Repository<curso>().GetAllAsync();
+            return await _unitOfWork.Repository<Curso>().GetAllAsync();
         }
     
-        public async Task<curso?> GetByIdAsync(int id)
+        public async Task<Curso?> GetByIdAsync(int id)
         {
-            return await _unitOfWork.Repository<curso>().GetByIdAsync(id);
+            return await _unitOfWork.Repository<Curso>().GetByIdAsync(id);
         }
     
-        public async Task AddAsync(curso curso)
+        public async Task AddAsync(Curso curso)
         {
-            await _unitOfWork.Repository<curso>().AddAsync(curso);
+            await _unitOfWork.Repository<Curso>().AddAsync(curso);
             await _unitOfWork.Complete();
         }
     
-        public async Task UpdateAsync(curso curso)
+        public async Task UpdateAsync(Curso curso)
         {
-            _unitOfWork.Repository<curso>().Update(curso);
+            _unitOfWork.Repository<Curso>().Update(curso);
             await _unitOfWork.Complete();
         }
     
         public async Task DeleteAsync(int id)
         {
-            var curso = await _unitOfWork.Repository<curso>().GetByIdAsync(id);
+            var curso = await _unitOfWork.Repository<Curso>().GetByIdAsync(id);
             if (curso != null)
             {
-                _unitOfWork.Repository<curso>().Remove(curso);
+                _unitOfWork.Repository<Curso>().Remove(curso);
                 await _unitOfWork.Complete();
             }
         }

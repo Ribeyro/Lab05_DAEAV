@@ -38,13 +38,13 @@ public class AsistenciaController : ControllerBase
             return BadRequest(ModelState);
 
         await _asistenciaService.AddAsync(asistencia);
-        return CreatedAtAction(nameof(GetById), new { id = asistencia.id_asistencia }, asistencia);
+        return CreatedAtAction(nameof(GetById), new { id = asistencia.IdAsistencia }, asistencia);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] Asistencia asistencia)
     {
-        if (id != asistencia.id_asistencia)
+        if (id != asistencia.IdAsistencia)
             return BadRequest("ID mismatch");
 
         if (!ModelState.IsValid)

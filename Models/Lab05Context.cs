@@ -1,29 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace Lab05RQuispe.Models;
 
 public partial class Lab05Context : DbContext
 {
+    public Lab05Context()
+    {
+    }
+
     public Lab05Context(DbContextOptions<Lab05Context> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<Asistencia> asistencias { get; set; }
+    public virtual DbSet<Asistencia> Asistencias { get; set; }
 
-    public virtual DbSet<curso> cursos { get; set; }
+    public virtual DbSet<Curso> Cursos { get; set; }
 
-    public virtual DbSet<estudiante> estudiantes { get; set; }
+    public virtual DbSet<Estudiante> Estudiantes { get; set; }
 
-    public virtual DbSet<evaluacione> evaluaciones { get; set; }
+    public virtual DbSet<Evaluacione> Evaluaciones { get; set; }
 
-    public virtual DbSet<materia> materias { get; set; }
+    public virtual DbSet<Materia> Materias { get; set; }
 
-    public virtual DbSet<matricula> matriculas { get; set; }
+    public virtual DbSet<Matricula> Matriculas { get; set; }
 
-    public virtual DbSet<profesore> profesores { get; set; }
+    public virtual DbSet<Profesore> Profesores { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=localhost;port=3306;database=lab05;user=root;password=123456", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.41-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,101 +44,191 @@ public partial class Lab05Context : DbContext
 
         modelBuilder.Entity<Asistencia>(entity =>
         {
-            entity.HasKey(e => e.id_asistencia).HasName("PRIMARY");
+            entity.HasKey(e => e.IdAsistencia).HasName("PRIMARY");
 
-            entity.HasIndex(e => e.id_curso, "id_curso");
+            entity.ToTable("asistencias");
 
-            entity.HasIndex(e => e.id_estudiante, "id_estudiante");
+            entity.HasIndex(e => e.IdCurso, "id_curso");
 
-            entity.Property(e => e.estado).HasMaxLength(20);
+            entity.HasIndex(e => e.IdEstudiante, "id_estudiante");
 
-            entity.HasOne(d => d.id_cursoNavigation).WithMany(p => p.asistencia)
-                .HasForeignKey(d => d.id_curso)
+            entity.Property(e => e.IdAsistencia).HasColumnName("id_asistencia");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasColumnName("estado");
+            entity.Property(e => e.Fecha).HasColumnName("fecha");
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
+            entity.Property(e => e.IdEstudiante).HasColumnName("id_estudiante");
+
+            entity.HasOne(d => d.IdCursoNavigation).WithMany(p => p.Asistencia)
+                .HasForeignKey(d => d.IdCurso)
                 .HasConstraintName("asistencias_ibfk_2");
 
-            entity.HasOne(d => d.id_estudianteNavigation).WithMany(p => p.asistencia)
-                .HasForeignKey(d => d.id_estudiante)
+            entity.HasOne(d => d.IdEstudianteNavigation).WithMany(p => p.Asistencia)
+                .HasForeignKey(d => d.IdEstudiante)
                 .HasConstraintName("asistencias_ibfk_1");
         });
 
-        modelBuilder.Entity<curso>(entity =>
+        modelBuilder.Entity<Curso>(entity =>
         {
-            entity.HasKey(e => e.id_curso).HasName("PRIMARY");
+            entity.HasKey(e => e.IdCurso).HasName("PRIMARY");
 
-            entity.Property(e => e.descripcion).HasColumnType("text");
-            entity.Property(e => e.nombre).HasMaxLength(100);
+            entity.ToTable("cursos");
+
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
+            entity.Property(e => e.Creditos).HasColumnName("creditos");
+            entity.Property(e => e.Descripcion)
+                .HasColumnType("text")
+                .HasColumnName("descripcion");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
         });
 
-        modelBuilder.Entity<estudiante>(entity =>
+        modelBuilder.Entity<Estudiante>(entity =>
         {
-            entity.HasKey(e => e.id_estudiante).HasName("PRIMARY");
+            entity.HasKey(e => e.IdEstudiante).HasName("PRIMARY");
 
-            entity.Property(e => e.apellido).HasMaxLength(100);
-            entity.Property(e => e.correo).HasMaxLength(100);
-            entity.Property(e => e.direccion).HasMaxLength(255);
-            entity.Property(e => e.nombre).HasMaxLength(100);
-            entity.Property(e => e.telefono).HasMaxLength(20);
+            entity.ToTable("estudiantes");
+
+            entity.HasIndex(e => e.IdUsuario, "fk_estudiantes_usuario");
+
+            entity.Property(e => e.IdEstudiante).HasColumnName("id_estudiante");
+            entity.Property(e => e.Apellido)
+                .HasMaxLength(100)
+                .HasColumnName("apellido");
+            entity.Property(e => e.Direccion)
+                .HasMaxLength(255)
+                .HasColumnName("direccion");
+            entity.Property(e => e.Edad).HasColumnName("edad");
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+            entity.Property(e => e.Telefono)
+                .HasMaxLength(20)
+                .HasColumnName("telefono");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Estudiantes)
+                .HasForeignKey(d => d.IdUsuario)
+                .HasConstraintName("fk_estudiantes_usuario");
         });
 
-        modelBuilder.Entity<evaluacione>(entity =>
+        modelBuilder.Entity<Evaluacione>(entity =>
         {
-            entity.HasKey(e => e.id_evaluacion).HasName("PRIMARY");
+            entity.HasKey(e => e.IdEvaluacion).HasName("PRIMARY");
 
-            entity.HasIndex(e => e.id_curso, "id_curso");
+            entity.ToTable("evaluaciones");
 
-            entity.HasIndex(e => e.id_estudiante, "id_estudiante");
+            entity.HasIndex(e => e.IdCurso, "id_curso");
 
-            entity.Property(e => e.calificacion).HasPrecision(5, 2);
+            entity.HasIndex(e => e.IdEstudiante, "id_estudiante");
 
-            entity.HasOne(d => d.id_cursoNavigation).WithMany(p => p.evaluaciones)
-                .HasForeignKey(d => d.id_curso)
+            entity.Property(e => e.IdEvaluacion).HasColumnName("id_evaluacion");
+            entity.Property(e => e.Calificacion)
+                .HasPrecision(5, 2)
+                .HasColumnName("calificacion");
+            entity.Property(e => e.Fecha).HasColumnName("fecha");
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
+            entity.Property(e => e.IdEstudiante).HasColumnName("id_estudiante");
+
+            entity.HasOne(d => d.IdCursoNavigation).WithMany(p => p.Evaluaciones)
+                .HasForeignKey(d => d.IdCurso)
                 .HasConstraintName("evaluaciones_ibfk_2");
 
-            entity.HasOne(d => d.id_estudianteNavigation).WithMany(p => p.evaluaciones)
-                .HasForeignKey(d => d.id_estudiante)
+            entity.HasOne(d => d.IdEstudianteNavigation).WithMany(p => p.Evaluaciones)
+                .HasForeignKey(d => d.IdEstudiante)
                 .HasConstraintName("evaluaciones_ibfk_1");
         });
 
-        modelBuilder.Entity<materia>(entity =>
+        modelBuilder.Entity<Materia>(entity =>
         {
-            entity.HasKey(e => e.id_materia).HasName("PRIMARY");
+            entity.HasKey(e => e.IdMateria).HasName("PRIMARY");
 
-            entity.HasIndex(e => e.id_curso, "id_curso");
+            entity.ToTable("materias");
 
-            entity.Property(e => e.descripcion).HasColumnType("text");
-            entity.Property(e => e.nombre).HasMaxLength(100);
+            entity.HasIndex(e => e.IdCurso, "id_curso");
 
-            entity.HasOne(d => d.id_cursoNavigation).WithMany(p => p.materia)
-                .HasForeignKey(d => d.id_curso)
+            entity.Property(e => e.IdMateria).HasColumnName("id_materia");
+            entity.Property(e => e.Descripcion)
+                .HasColumnType("text")
+                .HasColumnName("descripcion");
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+
+            entity.HasOne(d => d.IdCursoNavigation).WithMany(p => p.Materia)
+                .HasForeignKey(d => d.IdCurso)
                 .HasConstraintName("materias_ibfk_1");
         });
 
-        modelBuilder.Entity<matricula>(entity =>
+        modelBuilder.Entity<Matricula>(entity =>
         {
-            entity.HasKey(e => e.id_matricula).HasName("PRIMARY");
+            entity.HasKey(e => e.IdMatricula).HasName("PRIMARY");
 
-            entity.HasIndex(e => e.id_curso, "id_curso");
+            entity.ToTable("matriculas");
 
-            entity.HasIndex(e => e.id_estudiante, "id_estudiante");
+            entity.HasIndex(e => e.IdCurso, "id_curso");
 
-            entity.Property(e => e.semestre).HasMaxLength(20);
+            entity.HasIndex(e => e.IdEstudiante, "id_estudiante");
 
-            entity.HasOne(d => d.id_cursoNavigation).WithMany(p => p.matriculas)
-                .HasForeignKey(d => d.id_curso)
+            entity.Property(e => e.IdMatricula).HasColumnName("id_matricula");
+            entity.Property(e => e.IdCurso).HasColumnName("id_curso");
+            entity.Property(e => e.IdEstudiante).HasColumnName("id_estudiante");
+            entity.Property(e => e.Semestre)
+                .HasMaxLength(20)
+                .HasColumnName("semestre");
+
+            entity.HasOne(d => d.IdCursoNavigation).WithMany(p => p.Matriculas)
+                .HasForeignKey(d => d.IdCurso)
                 .HasConstraintName("matriculas_ibfk_2");
 
-            entity.HasOne(d => d.id_estudianteNavigation).WithMany(p => p.matriculas)
-                .HasForeignKey(d => d.id_estudiante)
+            entity.HasOne(d => d.IdEstudianteNavigation).WithMany(p => p.Matriculas)
+                .HasForeignKey(d => d.IdEstudiante)
                 .HasConstraintName("matriculas_ibfk_1");
         });
 
-        modelBuilder.Entity<profesore>(entity =>
+        modelBuilder.Entity<Profesore>(entity =>
         {
-            entity.HasKey(e => e.id_profesor).HasName("PRIMARY");
+            entity.HasKey(e => e.IdProfesor).HasName("PRIMARY");
 
-            entity.Property(e => e.correo).HasMaxLength(100);
-            entity.Property(e => e.especialidad).HasMaxLength(100);
-            entity.Property(e => e.nombre).HasMaxLength(100);
+            entity.ToTable("profesores");
+
+            entity.HasIndex(e => e.IdUsuario, "fk_profesores_usuario");
+
+            entity.Property(e => e.IdProfesor).HasColumnName("id_profesor");
+            entity.Property(e => e.Especialidad)
+                .HasMaxLength(100)
+                .HasColumnName("especialidad");
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Profesores)
+                .HasForeignKey(d => d.IdUsuario)
+                .HasConstraintName("fk_profesores_usuario");
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("usuarios");
+
+            entity.HasIndex(e => e.Username, "username").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .HasColumnName("password");
+            entity.Property(e => e.Rol)
+                .HasMaxLength(50)
+                .HasColumnName("rol");
+            entity.Property(e => e.Username)
+                .HasMaxLength(100)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);

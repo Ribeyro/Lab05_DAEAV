@@ -5,17 +5,17 @@ namespace Lab05RQuispe.Models;
 
 public partial class Asistencia
 {
-    public int id_asistencia { get; set; }
+    public int IdAsistencia { get; set; }
 
-    public int? id_estudiante { get; set; }
+    public int? IdEstudiante { get; set; }
 
-    public int? id_curso { get; set; }
+    public int? IdCurso { get; set; }
 
-    public DateOnly? fecha { get; set; }
+    public DateOnly? Fecha { get; set; }
 
-    public string? estado { get; set; }
+    public string? Estado { get; set; }
 
-    public virtual curso? id_cursoNavigation { get; set; }
+    public virtual Curso? IdCursoNavigation { get; set; }
 
-    public virtual estudiante? id_estudianteNavigation { get; set; }
+    public virtual Estudiante? IdEstudianteNavigation { get; set; }
 }

@@ -32,19 +32,19 @@ using Lab05RQuispe.Models;
         }
     
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] curso curso)
+        public async Task<IActionResult> Create([FromBody] Curso curso)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
     
             await _cursoService.AddAsync(curso);
-            return CreatedAtAction(nameof(GetById), new { id = curso.id_curso }, curso);
+            return CreatedAtAction(nameof(GetById), new { id = curso.IdCurso }, curso);
         }
     
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] curso curso)
+        public async Task<IActionResult> Update(int id, [FromBody] Curso curso)
         {
-            if (id != curso.id_curso)
+            if (id != curso.IdCurso)
                 return BadRequest("ID mismatch");
     
             if (!ModelState.IsValid)

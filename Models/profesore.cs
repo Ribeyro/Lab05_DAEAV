@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class profesore
+public partial class Profesore
 {
-    public int id_profesor { get; set; }
+    public int IdProfesor { get; set; }
 
-    public string nombre { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public string? especialidad { get; set; }
+    public string? Especialidad { get; set; }
 
-    public string? correo { get; set; }
+    public int? IdUsuario { get; set; }
+
+    public virtual Usuario? IdUsuarioNavigation { get; set; }
 }

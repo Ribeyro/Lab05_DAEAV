@@ -12,34 +12,34 @@ public class MatriculaService : IMatriculaService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<matricula>> GetAllAsync()
+    public async Task<IEnumerable<Matricula>> GetAllAsync()
     {
-        return await _unitOfWork.Repository<matricula>().GetAllAsync();
+        return await _unitOfWork.Repository<Matricula>().GetAllAsync();
     }
 
-    public async Task<matricula?> GetByIdAsync(int id)
+    public async Task<Matricula?> GetByIdAsync(int id)
     {
-        return await _unitOfWork.Repository<matricula>().GetByIdAsync(id);
+        return await _unitOfWork.Repository<Matricula>().GetByIdAsync(id);
     }
 
-    public async Task AddAsync(matricula matricula)
+    public async Task AddAsync(Matricula matricula)
     {
-        await _unitOfWork.Repository<matricula>().AddAsync(matricula);
+        await _unitOfWork.Repository<Matricula>().AddAsync(matricula);
         await _unitOfWork.Complete();
     }
 
-    public async Task UpdateAsync(matricula matricula)
+    public async Task UpdateAsync(Matricula matricula)
     {
-        _unitOfWork.Repository<matricula>().Update(matricula);
+        _unitOfWork.Repository<Matricula>().Update(matricula);
         await _unitOfWork.Complete();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var matricula = await _unitOfWork.Repository<matricula>().GetByIdAsync(id);
+        var matricula = await _unitOfWork.Repository<Matricula>().GetByIdAsync(id);
         if (matricula != null)
         {
-            _unitOfWork.Repository<matricula>().Remove(matricula);
+            _unitOfWork.Repository<Matricula>().Remove(matricula);
             await _unitOfWork.Complete();
         }
     }

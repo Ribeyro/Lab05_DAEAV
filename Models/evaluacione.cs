@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class evaluacione
+public partial class Evaluacione
 {
-    public int id_evaluacion { get; set; }
+    public int IdEvaluacion { get; set; }
 
-    public int? id_estudiante { get; set; }
+    public int? IdEstudiante { get; set; }
 
-    public int? id_curso { get; set; }
+    public int? IdCurso { get; set; }
 
-    public decimal? calificacion { get; set; }
+    public decimal? Calificacion { get; set; }
 
-    public DateOnly? fecha { get; set; }
+    public DateOnly? Fecha { get; set; }
 
-    public virtual curso? id_cursoNavigation { get; set; }
+    public virtual Curso? IdCursoNavigation { get; set; }
 
-    public virtual estudiante? id_estudianteNavigation { get; set; }
+    public virtual Estudiante? IdEstudianteNavigation { get; set; }
 }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class materia
+public partial class Materia
 {
-    public int id_materia { get; set; }
+    public int IdMateria { get; set; }
 
-    public int? id_curso { get; set; }
+    public int? IdCurso { get; set; }
 
-    public string nombre { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public string? descripcion { get; set; }
+    public string? Descripcion { get; set; }
 
-    public virtual curso? id_cursoNavigation { get; set; }
+    public virtual Curso? IdCursoNavigation { get; set; }
 }

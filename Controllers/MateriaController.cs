@@ -32,19 +32,19 @@ public class MateriaController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] materia materia)
+    public async Task<IActionResult> Create([FromBody] Materia materia)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         await _materiaService.AddAsync(materia);
-        return CreatedAtAction(nameof(GetById), new { id = materia.id_materia }, materia);
+        return CreatedAtAction(nameof(GetById), new { id = materia.IdMateria }, materia);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] materia materia)
+    public async Task<IActionResult> Update(int id, [FromBody] Materia materia)
     {
-        if (id != materia.id_materia)
+        if (id != materia.IdMateria)
             return BadRequest("ID mismatch");
 
         if (!ModelState.IsValid)

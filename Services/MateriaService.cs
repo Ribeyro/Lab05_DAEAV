@@ -12,34 +12,34 @@ public class MateriaService : IMateriaService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<materia>> GetAllAsync()
+    public async Task<IEnumerable<Materia>> GetAllAsync()
     {
-        return await _unitOfWork.Repository<materia>().GetAllAsync();
+        return await _unitOfWork.Repository<Materia>().GetAllAsync();
     }
 
-    public async Task<materia?> GetByIdAsync(int id)
+    public async Task<Materia?> GetByIdAsync(int id)
     {
-        return await _unitOfWork.Repository<materia>().GetByIdAsync(id);
+        return await _unitOfWork.Repository<Materia>().GetByIdAsync(id);
     }
 
-    public async Task AddAsync(materia materia)
+    public async Task AddAsync(Materia materia)
     {
-        await _unitOfWork.Repository<materia>().AddAsync(materia);
+        await _unitOfWork.Repository<Materia>().AddAsync(materia);
         await _unitOfWork.Complete();
     }
 
-    public async Task UpdateAsync(materia materia)
+    public async Task UpdateAsync(Materia materia)
     {
-        _unitOfWork.Repository<materia>().Update(materia);
+        _unitOfWork.Repository<Materia>().Update(materia);
         await _unitOfWork.Complete();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var materia = await _unitOfWork.Repository<materia>().GetByIdAsync(id);
+        var materia = await _unitOfWork.Repository<Materia>().GetByIdAsync(id);
         if (materia != null)
         {
-            _unitOfWork.Repository<materia>().Remove(materia);
+            _unitOfWork.Repository<Materia>().Remove(materia);
             await _unitOfWork.Complete();
         }
     }

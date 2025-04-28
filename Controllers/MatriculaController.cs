@@ -32,19 +32,19 @@ public class MatriculaController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] matricula matricula)
+    public async Task<IActionResult> Create([FromBody] Matricula matricula)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         await _matriculaService.AddAsync(matricula);
-        return CreatedAtAction(nameof(GetById), new { id = matricula.id_matricula }, matricula);
+        return CreatedAtAction(nameof(GetById), new { id = matricula.IdMatricula }, matricula);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] matricula matricula)
+    public async Task<IActionResult> Update(int id, [FromBody] Matricula matricula)
     {
-        if (id != matricula.id_matricula)
+        if (id != matricula.IdMatricula)
             return BadRequest("ID mismatch");
 
         if (!ModelState.IsValid)

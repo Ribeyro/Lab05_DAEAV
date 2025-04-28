@@ -32,19 +32,19 @@ public class ProfesoreController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] profesore profesore)
+    public async Task<IActionResult> Create([FromBody] Profesore profesore)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         await _profesoreService.AddAsync(profesore);
-        return CreatedAtAction(nameof(GetById), new { id = profesore.id_profesor }, profesore);
+        return CreatedAtAction(nameof(GetById), new { id = profesore.IdProfesor }, profesore);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] profesore profesore)
+    public async Task<IActionResult> Update(int id, [FromBody] Profesore profesore)
     {
-        if (id != profesore.id_profesor)
+        if (id != profesore.IdProfesor)
             return BadRequest("ID mismatch");
 
         if (!ModelState.IsValid)

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class curso
+public partial class Curso
 {
-    public int id_curso { get; set; }
+    public int IdCurso { get; set; }
 
-    public string nombre { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public string? descripcion { get; set; }
+    public string? Descripcion { get; set; }
 
-    public int creditos { get; set; }
+    public int Creditos { get; set; }
 
-    public virtual ICollection<Asistencia> asistencia { get; set; } = new List<Asistencia>();
+    public virtual ICollection<Asistencia> Asistencia { get; set; } = new List<Asistencia>();
 
-    public virtual ICollection<evaluacione> evaluaciones { get; set; } = new List<evaluacione>();
+    public virtual ICollection<Evaluacione> Evaluaciones { get; set; } = new List<Evaluacione>();
 
-    public virtual ICollection<materia> materia { get; set; } = new List<materia>();
+    public virtual ICollection<Materia> Materia { get; set; } = new List<Materia>();
 
-    public virtual ICollection<matricula> matriculas { get; set; } = new List<matricula>();
+    public virtual ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
 }

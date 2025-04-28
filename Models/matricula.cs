@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class matricula
+public partial class Matricula
 {
-    public int id_matricula { get; set; }
+    public int IdMatricula { get; set; }
 
-    public int? id_estudiante { get; set; }
+    public int? IdEstudiante { get; set; }
 
-    public int? id_curso { get; set; }
+    public int? IdCurso { get; set; }
 
-    public string? semestre { get; set; }
+    public string? Semestre { get; set; }
 
-    public virtual curso? id_cursoNavigation { get; set; }
+    public virtual Curso? IdCursoNavigation { get; set; }
 
-    public virtual estudiante? id_estudianteNavigation { get; set; }
+    public virtual Estudiante? IdEstudianteNavigation { get; set; }
 }

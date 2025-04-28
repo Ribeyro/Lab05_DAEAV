@@ -4,9 +4,9 @@ namespace Lab05RQuispe.Services;
     
     public interface ICursoService
     {
-        Task<IEnumerable<curso>> GetAllAsync();
-        Task<curso?> GetByIdAsync(int id);
-        Task AddAsync(curso curso);
-        Task UpdateAsync(curso curso);
+        Task<IEnumerable<Curso>> GetAllAsync();
+        Task<Curso?> GetByIdAsync(int id);
+        Task AddAsync(Curso curso);
+        Task UpdateAsync(Curso curso);
         Task DeleteAsync(int id);
     }

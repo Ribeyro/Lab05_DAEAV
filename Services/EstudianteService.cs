@@ -12,34 +12,34 @@ public class EstudianteService : IEstudianteService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<estudiante>> GetAllAsync()
+    public async Task<IEnumerable<Estudiante>> GetAllAsync()
     {
-        return await _unitOfWork.Repository<estudiante>().GetAllAsync();
+        return await _unitOfWork.Repository<Estudiante>().GetAllAsync();
     }
 
-    public async Task<estudiante?> GetByIdAsync(int id)
+    public async Task<Estudiante?> GetByIdAsync(int id)
     {
-        return await _unitOfWork.Repository<estudiante>().GetByIdAsync(id);
+        return await _unitOfWork.Repository<Estudiante>().GetByIdAsync(id);
     }
 
-    public async Task AddAsync(estudiante estudiante)
+    public async Task AddAsync(Estudiante estudiante)
     {
-        await _unitOfWork.Repository<estudiante>().AddAsync(estudiante);
+        await _unitOfWork.Repository<Estudiante>().AddAsync(estudiante);
         await _unitOfWork.Complete();
     }
 
-    public async Task UpdateAsync(estudiante estudiante)
+    public async Task UpdateAsync(Estudiante estudiante)
     {
-        _unitOfWork.Repository<estudiante>().Update(estudiante);
+        _unitOfWork.Repository<Estudiante>().Update(estudiante);
         await _unitOfWork.Complete();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var estudiante = await _unitOfWork.Repository<estudiante>().GetByIdAsync(id);
+        var estudiante = await _unitOfWork.Repository<Estudiante>().GetByIdAsync(id);
         if (estudiante != null)
         {
-            _unitOfWork.Repository<estudiante>().Remove(estudiante);
+            _unitOfWork.Repository<Estudiante>().Remove(estudiante);
             await _unitOfWork.Complete();
         }
     }

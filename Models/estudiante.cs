@@ -3,25 +3,27 @@ using System.Collections.Generic;
 
 namespace Lab05RQuispe.Models;
 
-public partial class estudiante
+public partial class Estudiante
 {
-    public int id_estudiante { get; set; }
+    public int IdEstudiante { get; set; }
 
-    public string nombre { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public string? apellido { get; set; }
+    public string? Apellido { get; set; }
 
-    public int? edad { get; set; }
+    public int? Edad { get; set; }
 
-    public string? direccion { get; set; }
+    public string? Direccion { get; set; }
 
-    public string? telefono { get; set; }
+    public string? Telefono { get; set; }
 
-    public string? correo { get; set; }
+    public int? IdUsuario { get; set; }
 
-    public virtual ICollection<Asistencia> asistencia { get; set; } = new List<Asistencia>();
+    public virtual ICollection<Asistencia> Asistencia { get; set; } = new List<Asistencia>();
 
-    public virtual ICollection<evaluacione> evaluaciones { get; set; } = new List<evaluacione>();
+    public virtual ICollection<Evaluacione> Evaluaciones { get; set; } = new List<Evaluacione>();
 
-    public virtual ICollection<matricula> matriculas { get; set; } = new List<matricula>();
+    public virtual Usuario? IdUsuarioNavigation { get; set; }
+
+    public virtual ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
 }

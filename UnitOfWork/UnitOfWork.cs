@@ -36,26 +36,27 @@ public class UnitOfWork : IUnitOfWork.IUnitOfWork
 
     public async Task HandleMatriculaAsync(int idCurso, int idEstudiante, int idProfesor, string semestre)
     {
-        var curso = await _context.cursos.FindAsync(idCurso);
+        var curso = await _context.Cursos.FindAsync(idCurso);
         if (curso == null)
-            throw new Exception("Curso not found");
+            throw new Exception("Curso no encontrado");
 
-        var estudiante = await _context.estudiantes.FindAsync(idEstudiante);
+        var estudiante = await _context.Estudiantes.FindAsync(idEstudiante);
         if (estudiante == null)
-            throw new Exception("Estudiante not found");
+            throw new Exception("Estudiante no encontrado");
 
-        var profesor = await _context.profesores.FindAsync(idProfesor);
+        var profesor = await _context.Profesores.FindAsync(idProfesor);
         if (profesor == null)
-            throw new Exception("Profesor not found");
+            throw new Exception("Profesor no encontrado");
 
-        var matricula = new matricula
+        var matricula = new Matricula
         {
-            id_curso = idCurso,
-            id_estudiante = idEstudiante,
-            semestre = semestre
+            IdCurso = idCurso,
+            IdEstudiante = idEstudiante,
+            Semestre = semestre
         };
 
-        await _context.matriculas.AddAsync(matricula);
+        await _context.Matriculas.AddAsync(matricula);
         await Complete();
     }
+
 }
